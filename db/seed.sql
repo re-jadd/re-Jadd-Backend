@@ -9,7 +9,8 @@ CREATE TABLE users (
   email varchar NOT NULL,
   password varchar NOT NULL,
   location point,
-  phone int NOT NULL
+  phone int NOT NULL,
+  role varchar NOT NULL
 );
 
 
@@ -30,9 +31,9 @@ CREATE TABLE orders (
 );
 
 
-INSERT INTO users(name, email, password, location, phone) 
+INSERT INTO users(name, email, password, location, phone, role) 
 VALUES
-('Abdulrab Bin Taleb', 'abdulrab.bt@hotmail.com', '0000', point(700, 800), 0545298122);
+('Abdulrab Bin Taleb', 'abdulrab.bt@hotmail.com', '0000', point(700, 800), 0545298122, 'admin');
 
 INSERT INTO garbage(type, size) 
 VALUES

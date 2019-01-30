@@ -21,7 +21,8 @@ app.get('/', (req, res) => {
 
 // ADD YOUR CONTROLLER HERE!!!
 
-// app.use('/show', tvController);
+const authController = require("./controllers/authController");
+app.use("/api/", authController);
 
 
 app.listen(port, () => {
