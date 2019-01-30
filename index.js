@@ -1,31 +1,26 @@
-const express = require('express');
-const port = 3000;
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const methodOverride = require('method-override');
-
-// const tvController = require('./controllers/showsController');
+require("dotenv").config();
+const express = require("express");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
 
 const app = express();
 
-app.use(logger('dev'));
+const port = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan("dev"));
 
-app.use(methodOverride('_method'));
+const driverController = require("./controllers/driverController");
+app.use("/api/", driverController);
 
 app.get('/', (req, res) => {
-  res.send('TV SHOWS!');
-})
+    res.send('Recylcet');
+  })
+  
 
-// ADD YOUR CONTROLLER HERE!!!
-
-// app.use('/show', tvController);
-
-
-app.listen(port, () => {
-  console.log('---------------------------------------');
-  console.log('Express listening on localhost:' + port);
-  console.log('---------------------------------------');
+app.listen(port, function() {
+  console.log("---------------------------------------");
+  console.log("Express listening on localhost:" + port);
+  console.log("---------------------------------------");
 });

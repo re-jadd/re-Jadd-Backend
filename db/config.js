@@ -1,14 +1,13 @@
-// configure postgres to connect our db to our express app
-const pgPromise = require('pg-promise');
-const pgInstance = pgPromise();
+var pgPromise = require("pg-promise");
+var pgInstance = pgPromise();
 
-const config = {
-  host: 'localhost',
+var config = {
+  host: "localhost",
   port: 5432,
-  database: 'recycle_db',
-  user: 'Azooz' // your username here!!
-}
+  database: "recycle_db",
+  user: 'masarah'
+};
 
-const connection = pgInstance(config);
+var connection = pgInstance(config);
 
 module.exports = connection;
