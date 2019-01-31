@@ -4,9 +4,15 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const user = require("../models/Driver");
 const auth = require("../middleware/auth");
-router.get("/testauth", auth, (req, res) => {
-  res.send("authenticated");
+router.get("/driver", auth, user.allOrder, (req, res) => {
+//   res.send("authenticated");
+  res.json(res.locals)
 });
+
+router.get("/driver/:id", auth, user.findOrder, (req, res) => {
+    //   res.send("authenticated");
+      res.json(res.locals)
+    });
 
 router.post("/auth", user.findEmail, user.login, (req, res) => {
   if (!res.user) {

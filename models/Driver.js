@@ -49,5 +49,28 @@ user.create = (req, res, next) => {
       next();
     });
 };
+user.allOrder = (req, res, next) => {
+    db.manyOrNone("select * from orders;")
+      .then((data) => {
+        res.locals.order = data;
+        next();
+      })
+      .catch((error) => {
+        console.log(error)
+        next();
+      })
+  }
 
+  user.findOrder = (req, res, next) => {
+    db.oneOrNone("SELECT garbage.* , users.phone as userPhone , users.location as userlocation, orders.state_order as state_order from users,  garbage , drivers, orders where orders.user_id= users.id AND garbage.order_id = orders.id And order_id= $1;"
+, [req.params.id])
+      .then((result) => {
+        res.locals.order = result;
+        next();
+      })
+      .catch(function(error) {
+        console.log(error);
+        next();
+      });
+  };
 module.exports = user;
