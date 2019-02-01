@@ -12,12 +12,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
 const driverController = require("./controllers/driverController");
-app.use("/api/", driverController);
+app.use("/Dapi/", driverController);
+
+const RecycleController = require("./controllers/RecycleController");
+app.use("/rapi/", RecycleController);
 
 app.get('/', (req, res) => {
     res.send('Recylcet');
   })
   
+
 
 app.listen(port, function() {
   console.log("---------------------------------------");

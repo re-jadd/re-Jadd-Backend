@@ -1,19 +1,18 @@
-
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const user = require("../models/Driver");
 const auth = require("../middleware/auth");
-router.get("/driver", auth, user.allOrder, (req, res) => {
-//   res.send("authenticated");
-  res.json(res.locals)
+router.get("/driver", auth,user.allOrder, (req, res) => {
+  // res.send("authenticated");
+  res.json(res.locals.order)
+  // res
 });
 
 router.get("/driver/:id", auth, user.findOrder, (req, res) => {
-    //   res.send("authenticated");
-      res.json(res.locals)
-    });
-
+  // res.send("authenticated");
+  res.json(res.locals.order)
+});
 router.post("/auth", user.findEmail, user.login, (req, res) => {
   if (!res.user) {
     res.status(400).send("invalid email or password");
