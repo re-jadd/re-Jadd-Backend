@@ -1,5 +1,5 @@
--- DROP DATABASE IF EXISTS recycle_db;
--- CREATE DATABASE recycle_db;
+DROP DATABASE IF EXISTS recycle_db;
+CREATE DATABASE recycle_db;
 \c recycle_db
 
 
@@ -26,24 +26,26 @@ CREATE TABLE drivers (
 
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
-  state_order varchar,
+  state_order varchar DEFAULT 'processing',
+  type VARCHAR ,
+  size int,
   user_id int NOT NULL,
   driver_id int,
   FOREIGN KEY(driver_id) REFERENCES drivers ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(user_id) REFERENCES users ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE garbage (
-  id SERIAL PRIMARY KEY,
-  type VARCHAR,
-  size int,
-  order_id int NOT NULL,
-  FOREIGN KEY(order_id) REFERENCES orders ON DELETE CASCADE ON UPDATE CASCADE
-);
+-- CREATE TABLE garbage (
+--   id SERIAL PRIMARY KEY,
+--   type VARCHAR ,
+--   size int,
+--   order_id int NOT NULL,
+--   FOREIGN KEY(order_id) REFERENCES orders ON DELETE CASCADE ON UPDATE CASCADE
+-- );
 
 
 
-
+-- select orders.* ,users.* , garbage.* from orders, drivers, garbage, users where users.id = orders.user_id  ;
 
 
 
@@ -53,16 +55,26 @@ VALUES
 ('mod', 'abdulb.bt@hotmail.com', '0000', point(48.75280565511687, 25.658938095781643), 0545298122,'f');
 
 
--- INSERT INTO drivers(name, email, password, location, phone, is_admin)
--- VALUES
--- ('bastawesi', 'abdulb.bt@hotmail.com', '0000', point(46.75280525511687, 24.658938094581643), 0545298122,'f'),
+INSERT INTO drivers(name, email, password, location, phone, is_admin)
+VALUES
+('bastawesi', 'abdulb.bt@hotmail.com', '0000', point(46.75280525511687, 24.658938094581643), 0545298122,'f');
 -- ('antr', 'ablrab.bt@hotmail.com', '0000', point(46.719846270787116, 24.69013561957955), 0545668122,'f');
-INSERT INTO orders(state_order, user_id, driver_id) 
+INSERT INTO orders(state_order,type, size, user_id, driver_id) 
 VALUES
-('processing', 1, 1);
+('processing','Medium', 15, 1, 1);
 
-INSERT INTO garbage(type, size, order_id) 
-VALUES
-('Plastic', 15, 1);
+-- INSERT INTO garbage(type, size, order_id) 
+-- VALUES
+-- ('Plastic', 15, 1);
+
+-- INSERT INTO orders(state_order,type, size, user_id, driver_id) VALUES
+-- ('processing','Medium', 15, 1, 1);
 
 
+
+-- INSERT INTO orders(state_order,type, size, user_id, driver_id) VALUES
+-- ('processing','Plastic','Medium',  1, 1);
+INSERT INTO orders(state_order,type, size, user_id, driver_id) VALUES
+('processing','Plastic','Medium', 1, 1);
+
+-- SELECT orders.* , users.phone as userPhone , users.location as userlocation from users, orders where orders.user_id= users.id AND  orders.id= 1;

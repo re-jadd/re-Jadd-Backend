@@ -1,6 +1,7 @@
 var db = require("../db/config");
 var bcrypt = require("bcrypt");
 var user = {};
+
 user.login = (req, res, next) => {
   db.one("SELECT * FROM drivers WHERE email = $1;", [req.body.email])
     .then(function(result) {
@@ -62,7 +63,7 @@ user.allOrder = (req, res, next) => {
   }
 
   user.findOrder = (req, res, next) => {
-    db.oneOrNone("SELECT garbage.* , users.phone as userPhone , users.location as userlocation, orders.state_order as state_order from users,  garbage , drivers, orders where orders.user_id= users.id AND garbage.order_id = orders.id And order_id= $1;"
+    db.oneOrNone("SELECT orders.* , users.phone as userPhone , users.location as userlocation from users, orders where orders.user_id= users.id AND  orders.id= $1;"
 , [req.params.id])
       .then((result) => {
         res.locals.order = result;
