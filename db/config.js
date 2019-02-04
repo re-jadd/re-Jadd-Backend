@@ -5,7 +5,7 @@ var config = {
   host: "localhost",
   port: 5432,
   database: "recycle_db",
-  user: 'masarah'
+  user: 'Azooz'
 };
 
 var connection = pgInstance(config);

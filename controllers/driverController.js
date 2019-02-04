@@ -9,10 +9,11 @@ router.get("/driver", auth,user.allOrder, (req, res) => {
   // res
 });
 
-router.get("/driver/:id", auth, user.findOrder, (req, res) => {
+router.get("/driver/:id", auth,  user.findOrder, (req, res) => {
   // res.send("authenticated");
   res.json(res.locals.order)
 });
+
 router.post("/auth", user.findEmail, user.login, (req, res) => {
   if (!res.user) {
     res.status(400).send("invalid email or password");
@@ -29,12 +30,13 @@ router.post("/users", user.findEmail, user.create, (req, res) => {
   if (res.user) {
     res.status(400).send("user is already reigister");
   } else {
-    const { email, name, id } = req.user;
+
+    const { email, name, id  , is_admin } = req.user;
 
     // const email = req.user.email ;
     // const name = req.user.name ;
 
-    const token = jwt.sign({ email, name, id }, process.env.JWT_KEY);
+    const token = jwt.sign({ email, name, id , is_admin }, process.env.JWT_KEY);
 
     res.send({ token });
   }

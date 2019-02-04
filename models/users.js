@@ -32,7 +32,7 @@ user.create = (req, res, next) => {
   db.one(
     "INSERT INTO users (name , email, password, location , phone) VALUES($1, $2 , $3,$4 ,$5 ) RETURNING *;",
     [
-      req.body.name.toLowerCase(),
+      req.body.name ? req.body.name.toLowerCase() : "",
       req.body.email.toLowerCase(),
       bcrypt.hashSync(req.body.password, salt),
       req.body.location,
@@ -58,8 +58,28 @@ user.createOrder = (req, res, next) => {
       req.body.driver_id
     ]
   )
+    .then(function (result) {
+      req.user = result;
+      next();
+    })
+    .catch(function (error) {
+      console.log(error);
+      next();
+    });
+}
+
+user.update = (req, res, next) => {
+  const salt = bcrypt.genSaltSync(10);
+  db.one('UPDATE users SET name=$1 , email=$2, password=$3, location=$4  , phone =$5 where id = $6 RETURNING *;',
+    [
+      req.body.name.toLowerCase(),
+      req.body.email.toLowerCase(),
+      bcrypt.hashSync(req.body.password, salt),
+      req.body.location,
+      req.body.phone,
+      req.params.id])
     .then((data) => {
-      res.locals.order = data;
+      res.user = data;
       next();
     })
     .catch((error) => {
@@ -83,4 +103,3 @@ user.findOrderuser = (req, res, next) => {
 
 
 module.exports = user;
-
