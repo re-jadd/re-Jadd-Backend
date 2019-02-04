@@ -28,7 +28,7 @@ CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
   state_order varchar DEFAULT 'processing',
   type VARCHAR ,
-  size int,
+  size varchar,
   user_id int NOT NULL,
   driver_id int,
   FOREIGN KEY(driver_id) REFERENCES drivers ON DELETE CASCADE ON UPDATE CASCADE,
