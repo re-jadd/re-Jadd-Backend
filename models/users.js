@@ -33,7 +33,7 @@ user.create = (req, res, next) => {
     "INSERT INTO users (name , email, password, location , phone) VALUES($1, $2 , $3,$4 ,$5 ) RETURNING *;",
     [
       req.body.name ? req.body.name.toLowerCase() : "",
-      req.body.email.toLowerCase(),
+      req.body.email ? req.body.email.toLowerCase() : "",
       bcrypt.hashSync(req.body.password, salt),
       req.body.location,
       req.body.phone
@@ -54,12 +54,12 @@ user.createOrder = (req, res, next) => {
       req.body.state_order,
       req.body.type,
       req.body.size,
-      req.params.user_id,
+      req.body.user_id,
       req.body.driver_id
     ]
   )
     .then(function (result) {
-      req.user = result;
+      res.locals.order = result;
       next();
     })
     .catch(function (error) {
@@ -69,8 +69,10 @@ user.createOrder = (req, res, next) => {
 }
 
 user.update = (req, res, next) => {
+
+  console.log("\n\n\n\n\n\n" , req.body)
   const salt = bcrypt.genSaltSync(10);
-  db.one('UPDATE users SET name=$1 , email=$2, password=$3, location=$4  , phone =$5 where id = $6 RETURNING *;',
+  db.one('UPDATE users SET name=$1, email=$2, password=$3, location=$4, phone=$5 where id=$6 RETURNING *;',
     [
       req.body.name.toLowerCase(),
       req.body.email.toLowerCase(),
@@ -79,6 +81,7 @@ user.update = (req, res, next) => {
       req.body.phone,
       req.params.id])
     .then((data) => {
+      console.log("\n\n\n\n\n\n" , data)
       res.user = data;
       next();
     })
