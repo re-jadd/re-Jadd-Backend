@@ -51,7 +51,7 @@ user.create = (req, res, next) => {
     });
 };
 user.allOrder = (req, res, next) => {
-    db.manyOrNone("select * from orders;")
+    db.manyOrNone("select orders.*, users.location as location from users , orders where users.id = orders.user_id;")
       .then((data) => {
         res.locals.order = data;
         next();

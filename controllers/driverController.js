@@ -31,12 +31,12 @@ router.post("/users", user.findEmail, user.create, (req, res) => {
     res.status(400).send("user is already reigister");
   } else {
 
-    const { email, name, id  , is_admin } = req.user;
+    const { email,name,location, phone, id , is_admin} = req.user;
 
     // const email = req.user.email ;
     // const name = req.user.name ;
 
-    const token = jwt.sign({ email, name, id , is_admin }, process.env.JWT_KEY);
+    const token = jwt.sign({ email,name,location, phone, id , is_admin }, process.env.JWT_KEY);
 
     res.send({ token });
   }
