@@ -51,8 +51,11 @@ CREATE TABLE orders (
 
 INSERT INTO users(name, email, password, location, phone, is_admin)
 VALUES
-('abdulrab', 'abdulrab.bt@hotmail.com', '0000', point(46.77280525511687, 24.658938094581643), 0545298122,'f'),
-('mod', 'abdulb.bt@hotmail.com', '0000', point(48.75280565511687, 25.658938095781643), 0545298122,'f');
+-- ('abdulrab', 'abdulrab.bt@hotmail.com', '0000', point(46.77280525511687, 24.658938094581643), 0545298122,'f'),
+('mod', 'abdulb.bt@hotmail.com', '0000', point( 24.663242, 46.673656), 0545298122,'f'),
+('mod', 'adulb.bt@hotmail.com', '0000', point( 24.663232, 46.673634), 0545298122,'f'),
+('mod', 'dulb.bt@hotmail.com', '0000', point( 24.666352, 46.674326), 0545298122,'f'),
+('mod', 'aulb.bt@hotmail.com', '0000', point( 24.663232, 46.673658), 0545298122,'f');
 
 
 INSERT INTO drivers(name, email, password, location, phone, is_admin)
@@ -61,7 +64,10 @@ VALUES
 -- ('antr', 'ablrab.bt@hotmail.com', '0000', point(46.719846270787116, 24.69013561957955), 0545668122,'f');
 INSERT INTO orders(state_order,type, size, user_id, driver_id) 
 VALUES
-('processing','Medium', 15, 1, 1);
+('processing','Medium', 15, 1, 1),
+('processing','Medium', 15, 2, 1),
+('processing','Medium', 15, 3, 1),
+('processing','Medium', 15, 4, 1);
 
 -- INSERT INTO garbage(type, size, order_id) 
 -- VALUES
@@ -74,7 +80,7 @@ VALUES
 
 -- INSERT INTO orders(state_order,type, size, user_id, driver_id) VALUES
 -- ('processing','Plastic','Medium',  1, 1);
-INSERT INTO orders(state_order,type, size, user_id, driver_id) VALUES
-('processing','Plastic','Medium', 1, 1);
+-- INSERT INTO orders(state_order,type, size, user_id, driver_id) VALUES
+-- ('processing','Plastic','Medium', 1, 1);
 
 -- SELECT orders.* , users.phone as userPhone , users.location as userlocation from users, orders where orders.user_id= users.id AND  orders.id= 1;
