@@ -16,6 +16,19 @@ user.login = (req, res, next) => {
     });
 };
 
+user.getAll = (req, res, next) => {
+  db.manyOrNone("SELECT * FROM drivers;")
+    .then((data) => {
+      // res.locals.users = data;
+      res.locals.drivers = data;
+      next();
+    })
+    .catch((error) => {
+      console.log(error)
+      next();
+    })
+}
+
 user.findEmail = (req, res, next) => {
   db.oneOrNone("SELECT * FROM drivers WHERE email=$1;", [req.body.email])
     .then(function(result) {

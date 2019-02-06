@@ -11,13 +11,20 @@ router.post("/order", auth, user.createOrder,(req, res) => {
     res.json(res.locals.order)
 });
 
+router.get('/', user.getAll, auth, (req, res) => {
+  res.json(res.locals.users);
+})
+
+router.delete('/users/:id', user.delete, auth, (req, res) => {
+  res.json({message: "success delete"})
+})
 
 router.post("/auth", user.findEmail, user.login, (req, res) => {
   if (!res.user) {
     res.status(400).send("invalid email or password");
   } else {
     const { email, name,location, phone, id , is_admin } = req.user;
-  
+
     const token = jwt.sign({ email,name,location, phone, id , is_admin}, process.env.JWT_KEY);
 
     res.send({ token });
