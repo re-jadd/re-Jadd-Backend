@@ -9,6 +9,10 @@ router.get("/driver", auth,user.allOrder, (req, res) => {
   // res
 });
 
+router.get('/', user.getAll, auth, (req, res) => {
+  res.json(res.locals.drivers);
+})
+
 router.get("/driver/:id", auth,  user.findOrder, (req, res) => {
   // res.send("authenticated");
   res.json(res.locals.order)

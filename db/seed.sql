@@ -80,7 +80,12 @@ VALUES
 
 -- INSERT INTO orders(state_order,type, size, user_id, driver_id) VALUES
 -- ('processing','Plastic','Medium',  1, 1);
+
 -- INSERT INTO orders(state_order,type, size, user_id, driver_id) VALUES
 -- ('processing','Plastic','Medium', 1, 1);
 
 -- SELECT orders.* , users.phone as userPhone , users.location as userlocation from users, orders where orders.user_id= users.id AND  orders.id= 1;
+
+INSERT INTO orders(state_order,type, size, user_id, driver_id) VALUES
+('processing','Plastic','Medium', 1, 1);
+
