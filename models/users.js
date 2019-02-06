@@ -14,6 +14,36 @@ user.login = (req, res, next) => {
       next();
     });
 };
+// db.manyOrNone("SELECT users.* as user ,orders.* as order from users, orders  where users.id=orders.user_id;")
+user.getAll = (req, res, next) => {
+  db.manyOrNone("SELECT * FROM users;")
+    .then((data) => {
+      // res.locals.users = data;
+      res.locals.users = data/* .map( user => {
+
+        return {
+          name: user.name , 
+          email: user.email,
+          location: user.location,
+          phone: user.phone, 
+          order: {
+            id: user.id,
+            state_order: user.state_order,
+            type: user.type,
+            size: user.size,
+            user_id: user.user_id,
+            driver_id: user.driver_id
+          }
+        }
+      }) */
+       
+      next();
+    })
+    .catch((error) => {
+      console.log(error)
+      next();
+    })
+}
 
 user.findEmail = (req, res, next) => {
   db.oneOrNone("SELECT * FROM users WHERE email=$1;", [req.body.email])
@@ -51,7 +81,7 @@ user.create = (req, res, next) => {
 user.createOrder = (req, res, next) => {
   db.manyOrNone("INSERT INTO orders(state_order,type, size, user_id, driver_id) VALUES($1, $2 , $3,$4 ,$5 ) RETURNING *;",
     [
-      req.body.state_order,
+      req.body.state_order === "" ? "processing" :  req.body.state_order,
       req.body.type,
       req.body.size,
       req.body.user_id,
@@ -102,6 +132,18 @@ user.findOrderuser = (req, res, next) => {
       next();
     });
 };
+
+user.delete = (req, res, next) => {
+  db.none('DELETE FROM users WHERE id=$1', [req.params.id])
+    .then((data) => {
+      next();
+    })
+    .catch((error) => {
+      console.log(error)
+      next();
+    })
+}
+
 
 
 
